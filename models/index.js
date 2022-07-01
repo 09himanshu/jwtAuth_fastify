@@ -16,5 +16,6 @@ let db = {}
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.user = require('./user.models')(sequelize,Sequelize);
+db.auth = require("./auth.models")(sequelize, Sequelize);
 
 module.exports = db;

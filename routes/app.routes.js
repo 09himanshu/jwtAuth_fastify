@@ -1,23 +1,19 @@
 
 const controller = require('../controller/user.controller');
-const {jwtVerify} = require('../middleware');
 
-// const multer = require('multer');
-// const path = require('path');
+const multer = require('multer');
+const path = require('path');
 
-// const storage = multer.diskStorage({
-//   destination: "./controller/images/",
-//   filename: (req, file, db) => {
-//     return cb(
-//       null,
-//       `${file.filename}_${Date.now()}${path.extname(file.originalname)}`
-//     );
-//   },
-// });
+const storage = multer.diskStorage({
+  destination: "./controller/images/",
+  filename: (req, file, cb) => {
+    return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
+  },
+});
 
-// const upload = multer({
-//     storage: storage
-// })
+const upload = multer({
+    storage: storage
+})
 
 
 async function create(fastify) {

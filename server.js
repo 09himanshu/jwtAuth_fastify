@@ -11,9 +11,14 @@ db.sequelize.sync({ force: true}).then(() => {
 });
 
 // Routes
+const {signup,signin} = require("./routes/auth.routes");
 const {create, getAll} = require("./routes/app.routes");
 
+fastify.register(signup);
+fastify.register(signin);
+
 // all token authentication done here
+// To authenticate any routes please put it above "done()"
 fastify.register(
   function (route, ops, done) {
     route.addHook('preHandler', (req, res, next) => {
@@ -39,6 +44,7 @@ fastify.register(
 const start = async () => {
   try {
     await fastify.listen({ port: config.port });
+    console.log(`Server listen on port ${config.port}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
